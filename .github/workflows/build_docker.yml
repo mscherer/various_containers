@@ -20,6 +20,7 @@ jobs:
 
           pip install requests
           python ./complete_template.py Dockerfile.template Dockerfile
+          env 
 
           echo $PASSWORD | docker login $REGISTRY -u $LOGIN --password-stdin
 
