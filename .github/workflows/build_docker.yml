@@ -17,7 +17,9 @@ jobs:
       - name: Run the build
         run: |
           export DATE=$(date +%Y%m%d)
-          set -x
+          export LOGIN=$GITHUB_REPOSITORY_OWNER
+          export IMAGE=$GITHUB_REPOSITORY
+
           pip install requests
           python ./complete_template.py Dockerfile.template Dockerfile
 
@@ -28,7 +30,5 @@ jobs:
           docker push $REGISTRY/$IMAGE:$DATE
         env:
           REGISTRY: ghcr.io
-          LOGIN: ${{ GITHUB_REPOSITORY_OWNER }}
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE: ${{ GITHUB_REPOSITORY }}
 
