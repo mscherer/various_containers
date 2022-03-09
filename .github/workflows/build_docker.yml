@@ -16,14 +16,18 @@ jobs:
       - name: Run the build
         run: |
           export DATE=$(date +%Y%m%d)
+
           pip install requests
           python ./complete_template.py Dockerfile.template Dockerfile
-          echo $GITHUB_TOKEN | docker login ghcr.io -u $LOGIN --password-stdin
-          docker build . --tag ghcr.io/$LOGIN/$IMAGE:$DATE --tag ghcr.io/$LOGIN/$IMAGE:latest
-          docker push ghcr.io/$LOGIN/$IMAGE:latest
-          docker push ghcr.io/$LOGIN/$IMAGE:$DATE
+
+          echo $PASSWORD | docker login $REGISTRY -u $LOGIN --password-stdin
+
+          docker build . --tag $REGISTRY/$IMAGE:$DATE --tag $REGISTRY/$IMAGE:latest
+          docker push $REGISTRY/$IMAGE:latest
+          docker push $REGISTRY/$IMAGE:$DATE
         env:
-          LOGIN: mscherer
-          IMAGE: fedora_static_web_builder
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY: ghcr.io
+          LOGIN: ${{ env.GITHUB_REPOSITORY_OWNER }}
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE: ${{ env.GITHUB_REPOSITORY }}
 
