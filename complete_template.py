@@ -2,6 +2,10 @@ import requests
 from string import Template
 import sys
 
+# Q48267 => Fedora Linux
+# P348 => identifiant de version
+# P548 => type de version
+# Q2804309 => "stable version"
 payload = {
         "format": "json",
         "query": '''SELECT ?versionstable WHERE {
