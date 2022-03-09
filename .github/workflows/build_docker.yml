@@ -1,0 +1,29 @@
+name: Build Docker image
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+      - name: Run the build
+        run: |
+          export DATE=$(date +%Y%m%d)
+          pip install requests
+          python ./complete_template.py Dockerfile.template Dockerfile
+          echo $GITHUB_TOKEN | docker login ghcr.io -u $LOGIN --password-stdin
+          docker build . --tag ghcr.io/$LOGIN/$IMAGE:$DATE --tag ghcr.io/$LOGIN/$IMAGE:latest
+          docker push ghcr.io/$LOGIN/$IMAGE:latest
+          docker push ghcr.io/$LOGIN/$IMAGE:$DATE
+        env:
+          LOGIN: mscherer
+          IMAGE: fedora_static_web_builder
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

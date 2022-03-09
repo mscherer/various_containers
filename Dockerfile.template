@@ -1,0 +1,3 @@
+FROM fedora:$VERSION
+LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
+RUN dnf install -y zola hugo openssh-clients rsync && dnf clean all
