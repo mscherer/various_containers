@@ -28,7 +28,7 @@ jobs:
           docker push $REGISTRY/$IMAGE:$DATE
         env:
           REGISTRY: ghcr.io
-          LOGIN: ${{ env.GITHUB_REPOSITORY_OWNER }}
+          LOGIN: ${{ GITHUB_REPOSITORY_OWNER }}
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE: ${{ env.GITHUB_REPOSITORY }}
+          IMAGE: ${{ GITHUB_REPOSITORY }}
 
