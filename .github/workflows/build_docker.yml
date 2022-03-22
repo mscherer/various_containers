@@ -23,7 +23,7 @@ jobs:
           echo $PASSWORD | docker login $REGISTRY -u $LOGIN --password-stdin
 
           for i in */Dockerfile.template; do 
-            export IMAGE=$(dirname $i)
+            export IMAGE=$LOGIN/$(dirname $i)
             cd $IMAGE
             python ../complete_template.py Dockerfile.template Dockerfile
 
