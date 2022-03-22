@@ -24,7 +24,7 @@ jobs:
 
           for i in */Dockerfile.template; do 
             export IMAGE=$LOGIN/$(dirname $i)
-            cd $IMAGE
+            cd $(dirname $i)
             python ../complete_template.py Dockerfile.template Dockerfile
 
             docker build . --tag $REGISTRY/$IMAGE:$DATE --tag $REGISTRY/$IMAGE:latest
