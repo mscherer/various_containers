@@ -18,16 +18,20 @@ jobs:
           export DATE=$(date +%Y%m%d)
           # use that here since the variable are not present before start, so can't be in env
           export LOGIN=$GITHUB_REPOSITORY_OWNER
-          export IMAGE=$GITHUB_REPOSITORY
 
           pip install requests
-          python ./complete_template.py Dockerfile.template Dockerfile
-
           echo $PASSWORD | docker login $REGISTRY -u $LOGIN --password-stdin
 
-          docker build . --tag $REGISTRY/$IMAGE:$DATE --tag $REGISTRY/$IMAGE:latest
-          docker push $REGISTRY/$IMAGE:latest
-          docker push $REGISTRY/$IMAGE:$DATE
+          for i in */Dockerfile.template; do 
+            export IMAGE=$(dirname $i)
+            cd $IMAGE
+            python ./complete_template.py Dockerfile.template Dockerfile
+
+            docker build . --tag $REGISTRY/$IMAGE:$DATE --tag $REGISTRY/$IMAGE:latest
+            docker push $REGISTRY/$IMAGE:latest
+            docker push $REGISTRY/$IMAGE:$DATE
+            cd ..
+          done 
         env:
           REGISTRY: ghcr.io
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
