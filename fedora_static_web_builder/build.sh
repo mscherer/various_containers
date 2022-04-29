@@ -1,11 +1,8 @@
 #!/bin/bash
 # config
 #PLUGIN_BUILDER
-#PLUGIN_SERVER
 #PLUGIN_VHOST
 #PLUGIN_USER
-#PLUGIN_SSH_KEY
-#PLUGIN_DESTINATION_DIR
 
 BASE_URL="//${PLUGIN_VHOST}"
 if [ -z "$PLUGIN_SERVER" ]; then
@@ -16,7 +13,16 @@ if [ -z "$PLUGIN_DESTINATION_DIR" ]; then
 	PLUGIN_SERVER="/var/www/${PLUGIN_VHOST}"
 fi;
 
-
+if [ -z "$PLUGIN_BUILDER" ]; then
+	if [ -f config.toml ]; then
+		if [ grep -q languageCode config.toml ]; then
+			PLUGIN_BUILDER=hugo
+		fi;
+		if [ grep -q default_language config.toml ]; then
+			PLUGIN_BUILDER=zola
+		fi; 
+	fi;
+fi;
 
 case $PLUGIN_BUILDER in
 	zola)
