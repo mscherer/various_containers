@@ -10,7 +10,7 @@ if [ -z "$PLUGIN_SERVER" ]; then
 fi;
 
 if [ -z "$PLUGIN_DESTINATION_DIR" ]; then
-	PLUGIN_SERVER="/var/www/${PLUGIN_VHOST}"
+	PLUGIN_DESTINATION_DIR="/var/www/${PLUGIN_VHOST}"
 fi;
 
 if [ -z "$PLUGIN_BUILDER" ]; then
