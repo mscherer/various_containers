@@ -12,6 +12,11 @@ if [ -z "$PLUGIN_SERVER" ]; then
 	PLUGIN_SERVER=${PLUGIN_VHOST}
 fi;
 
+if [ -z "$PLUGIN_DESTINATION_DIR" ]; then
+	PLUGIN_SERVER="/var/www/${PLUGIN_VHOST}"
+fi;
+
+
 
 case $PLUGIN_BUILDER in
 	zola)
