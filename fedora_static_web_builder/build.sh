@@ -15,10 +15,10 @@ fi;
 
 if [ -z "$PLUGIN_BUILDER" ]; then
 	if [ -f config.toml ]; then
-		if [ grep -q languageCode config.toml ]; then
+		if grep -q languageCode config.toml ; then
 			PLUGIN_BUILDER=hugo
 		fi;
-		if [ grep -q default_language config.toml ]; then
+		if grep -q default_language config.toml ; then
 			PLUGIN_BUILDER=zola
 		fi; 
 	fi;
