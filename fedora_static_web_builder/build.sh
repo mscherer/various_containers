@@ -8,6 +8,11 @@
 #PLUGIN_DESTINATION_DIR
 
 BASE_URL="//${PLUGIN_VHOST}"
+if [ -z "$PLUGIN_SERVER" ]; then
+	PLUGIN_SERVER=${PLUGIN_VHOST}
+fi;
+
+
 case $PLUGIN_BUILDER in
 	zola)
 		CMD="zola build"
