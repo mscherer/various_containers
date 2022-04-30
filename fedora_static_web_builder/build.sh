@@ -5,13 +5,6 @@
 #PLUGIN_USER
 
 BASE_URL="//${PLUGIN_VHOST}"
-if [ -z "$PLUGIN_SERVER" ]; then
-	PLUGIN_SERVER=${PLUGIN_VHOST}
-fi;
-
-if [ -z "$PLUGIN_DESTINATION_DIR" ]; then
-	PLUGIN_DESTINATION_DIR="/var/www/${PLUGIN_VHOST}"
-fi;
 
 if [ -z "$PLUGIN_BUILDER" ]; then
 	if [ -f config.toml ]; then
@@ -46,6 +39,14 @@ fi;
 eval $CMD $CMD_DRAFT $CMD_BASE_URL
 
 if [ -z "$PLUGIN_CHECK" ]; then
+	if [ -z "$PLUGIN_SERVER" ]; then
+		PLUGIN_SERVER=${PLUGIN_VHOST}
+	fi;
+
+	if [ -z "$PLUGIN_DESTINATION_DIR" ]; then
+		PLUGIN_DESTINATION_DIR="/var/www/${PLUGIN_VHOST}"
+	fi;
+
 
 	KEYFILE=/tmp/ssh_key
 	# keep the double ${} for variable escaping, and the " for
