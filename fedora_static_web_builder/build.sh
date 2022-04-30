@@ -51,4 +51,6 @@ KEYFILE=/tmp/ssh_key
 echo "${SSH_KEY}" > $KEYFILE
 chmod 700 $KEYFILE
 
-scp -o 'StrictHostKeyChecking no' -r -i $KEYFILE $BUILT_SITE/* $PLUGIN_USER@$PLUGIN_SERVER:$PLUGIN_DESTINATION_DIR
+if [ -z "$PLUGIN_CHECK" ]; then
+	scp -o 'StrictHostKeyChecking no' -r -i $KEYFILE $BUILT_SITE/* $PLUGIN_USER@$PLUGIN_SERVER:$PLUGIN_DESTINATION_DIR
+fi;
