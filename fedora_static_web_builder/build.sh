@@ -4,6 +4,7 @@
 #PLUGIN_VHOST
 #PLUGIN_USER
 
+set -e
 BASE_URL="//${PLUGIN_VHOST}"
 
 if [ -z "$PLUGIN_BUILDER" ]; then
