@@ -7,7 +7,7 @@
 set -e
 BASE_URL="//${PLUGIN_VHOST}"
 
-if [ -v "$PLUGIN_DEBUG_BUILD" ]; then
+if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
 	env
 fi;
