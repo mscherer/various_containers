@@ -7,6 +7,12 @@
 set -e
 BASE_URL="//${PLUGIN_VHOST}"
 
+if [ -v "$PLUGIN_DEBUG_BUILD" ]; then
+	set -x
+	env
+fi;
+	       
+
 if [ -z "$PLUGIN_BUILDER" ]; then
 	if [ -f config.toml ]; then
 		if grep -q languageCode config.toml ; then
