@@ -67,14 +67,8 @@ if [ -z "$PLUGIN_CHECK" ]; then
 		# https://stackoverflow.com/questions/22101778/how-to-preserve-line-breaks-when-storing-command-output-to-a-variable
 		echo "${SSH_KEY}" > $KEYFILE
 		chmod 700 $KEYFILE
-		KEY_OPTION="-i $KEYFILE"
+		echo "set sftp:connect-program \"ssh -a -x -i $KEYFILE\"" > ~/.lftprc
 	fi;
-	if [ -z "$SSH_PASS" ]; then
-	        SSHPASS_CMD=""
-	else
-		# TODO escape if need arise
-		SSHPASS_CMD="sshpass -p \"$SSH_PASS\""
-	fi;
-
-	$SSHPASS_CMD scp -o 'StrictHostKeyChecking no' -r $KEY_OPTION $BUILT_SITE/* $PLUGIN_USER@$PLUGIN_SERVER:$PLUGIN_DESTINATION_DIR
+	# TODO deal with $SSH_PASS not defined if later we make the script more strict
+	lftp -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR/; bye" $PLUGIN_SERVER
 fi;
