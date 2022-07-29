@@ -43,7 +43,7 @@ if [ -z "$PLUGIN_DRAFT" ]; then
 	CMD_DRAFT=""
 fi;
 
-if [ -z "$CMD" ];
+if [ -z "$CMD" ]; then
 	echo "No supported static website builder specified or detected, got $PLUGIN_BUILDER"
 	exit 1
 fi;
