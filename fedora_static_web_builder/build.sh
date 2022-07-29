@@ -10,7 +10,7 @@ BASE_URL="//${PLUGIN_VHOST}"
 DEBUG_OPTION=""
 if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
-	env
+	env | sort
 	DEBUG_OPTION="-d"
 fi;
 	       
