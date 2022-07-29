@@ -7,6 +7,8 @@
 set -e
 BASE_URL="//${PLUGIN_VHOST}"
 
+export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+
 DEBUG_OPTION=""
 if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
