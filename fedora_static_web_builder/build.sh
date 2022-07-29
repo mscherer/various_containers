@@ -48,12 +48,22 @@ if [ -z "$PLUGIN_CHECK" ]; then
 		PLUGIN_DESTINATION_DIR="/var/www/${PLUGIN_VHOST}"
 	fi;
 
+	if [ -z "$SSH_KEY" ]; then
+		KEY_OPTION=""
+	else
+		KEYFILE=/tmp/ssh_key
+		# keep the double ${} for variable escaping, and the " for
+		# https://stackoverflow.com/questions/22101778/how-to-preserve-line-breaks-when-storing-command-output-to-a-variable
+		echo "${SSH_KEY}" > $KEYFILE
+		chmod 700 $KEYFILE
+		KEY_OPTION="-i $KEYFILE"
+	fi;
+	if [ -z "$SSH_PASS" ]; then
+	        SSHPASS_CMD=""
+	else
+		# TODO escape if need arise
+		SSHPASS_CMD="sshpass -p \"$SSH_PASS\""
+	fi;
 
-	KEYFILE=/tmp/ssh_key
-	# keep the double ${} for variable escaping, and the " for
-	# https://stackoverflow.com/questions/22101778/how-to-preserve-line-breaks-when-storing-command-output-to-a-variable
-	echo "${SSH_KEY}" > $KEYFILE
-	chmod 700 $KEYFILE
-
-	scp -o 'StrictHostKeyChecking no' -r -i $KEYFILE $BUILT_SITE/* $PLUGIN_USER@$PLUGIN_SERVER:$PLUGIN_DESTINATION_DIR
+	$SSHPASS_CMD scp -o 'StrictHostKeyChecking no' -r $KEY_OPTION $BUILT_SITE/* $PLUGIN_USER@$PLUGIN_SERVER:$PLUGIN_DESTINATION_DIR
 fi;
