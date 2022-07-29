@@ -70,5 +70,5 @@ if [ -z "$PLUGIN_CHECK" ]; then
 		echo "set sftp:connect-program \"ssh -a -x -i $KEYFILE\"" > ~/.lftprc
 	fi;
 	# TODO deal with $SSH_PASS not defined if later we make the script more strict
-	lftp -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR/; bye" $PLUGIN_SERVER
+	lftp -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR/; bye" sftp://$PLUGIN_SERVER
 fi;
