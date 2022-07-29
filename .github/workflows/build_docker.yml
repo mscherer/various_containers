@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v2
+      - name: Check the bash syntax
+        run: |
+          set -e
+          for i in $( find . -name '*sh'); do
+            bash -n $i;
+          done
       - name: Run the build
         run: |
           export DATE=$(date +%Y%m%d)
