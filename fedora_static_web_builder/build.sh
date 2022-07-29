@@ -75,5 +75,6 @@ if [ -z "$PLUGIN_CHECK" ]; then
 	# TODO deal with $SSH_PASS not defined if later we make the script more strict
 	# TODO add -e once it work fine
 	# TODO add -v if $DEBUG_OPTION is set
+	# note: having a final / or not in the destination do not seems to have much impact, contrary to what is said in the changelog
 	lftp $DEBUG_OPTION -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR; bye" sftp://$PLUGIN_SERVER
 fi;
