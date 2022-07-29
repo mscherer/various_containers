@@ -1,5 +1,5 @@
 FROM fedora:$VERSION
 LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
-RUN dnf install --setopt=install_weak_deps=False -y zola hugo lftp && dnf clean all
+RUN dnf install --setopt=install_weak_deps=False -y zola hugo lftp openssh-clients && dnf clean all
 COPY build.sh /usr/local/bin/build.sh
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
