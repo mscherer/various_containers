@@ -7,9 +7,11 @@
 set -e
 BASE_URL="//${PLUGIN_VHOST}"
 
+DEBUG_OPTION=""
 if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
 	env
+	DEBUG_OPTION="-d"
 fi;
 	       
 
@@ -71,5 +73,5 @@ if [ -z "$PLUGIN_CHECK" ]; then
 		echo "set sftp:auto-confirm yes" >> ~/.lftprc
 	fi;
 	# TODO deal with $SSH_PASS not defined if later we make the script more strict
-	lftp -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR/; bye" sftp://$PLUGIN_SERVER
+	lftp $DEBUG_OPTION -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR/; bye" sftp://$PLUGIN_SERVER
 fi;
