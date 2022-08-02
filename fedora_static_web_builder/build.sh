@@ -5,7 +5,7 @@
 #PLUGIN_USER
 
 set -e
-BASE_URL="//${PLUGIN_VHOST}"
+BASE_URL="https://${PLUGIN_VHOST}"
 
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 
