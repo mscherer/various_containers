@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-NAME=zola
-REPO=getzola/${NAME}
+NAME=hugo
+REPO=gohugoio/${NAME}
 VERSION=$(curl -s https://api.github.com/repos/$REPO/releases/latest | jq .name | tr -d '"')
-TARBALL=${NAME}-${VERSION}-x86_64-unknown-linux-gnu.tar.gz
+TARBALL=${NAME}_${VERSION##v}_Linux-64bit.tar.gz
 
 TMPFILE=/tmp/${NAME}.tar.gz
 echo "Downloading $NAME $VERSION"
