@@ -11,7 +11,7 @@ RUN /bin/bash -x /usr/local/bin/download_zola.sh
 COPY download_hugo.sh /usr/local/bin/download_hugo.sh
 RUN /bin/bash -x /usr/local/bin/download_hugo.sh
 
-RUN dnf rollback last
+RUN dnf history rollback last
 RUN dnf install --nodocs --setopt=install_weak_deps=False -y lftp openssh-clients && dnf clean all
 
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
