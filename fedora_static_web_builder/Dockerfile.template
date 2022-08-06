@@ -1,7 +1,7 @@
 FROM fedora:$VERSION
 LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
 
-RUN dnf install --nodocs --setopt=install_weak_deps=False -y jq curl lftp openssh-clients && dnf clean all
+RUN dnf install --nodocs --setopt=install_weak_deps=False -y jq curl && dnf clean all
 
 COPY build.sh /usr/local/bin/build.sh
 
@@ -11,5 +11,7 @@ RUN /bin/bash -x /usr/local/bin/download_zola.sh
 COPY download_hugo.sh /usr/local/bin/download_hugo.sh
 RUN /bin/bash -x /usr/local/bin/download_hugo.sh
 
+RUN dnf rollback last
+RUN dnf install --nodocs --setopt=install_weak_deps=False -y lftp openssh-clients && dnf clean all
 
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
