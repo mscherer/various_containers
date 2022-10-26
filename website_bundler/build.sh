@@ -38,7 +38,8 @@ cd /tmp
 cp -R $SITE_PATH public
 cp /srv/main.go /srv/Dockerfile .
 # CGO prevent static build, needed for scratch container
-CGO_ENABLED=0 go build main.go
+# https://words.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick/
+CGO_ENABLED=0 go build -ldflags "-s -w" main.go
 
 # to avoid error:
 # 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
