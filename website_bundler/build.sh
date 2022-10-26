@@ -26,6 +26,10 @@ NAMESPACE=$PLUGIN_NAMESPACE
 
 NAME=webserver
 
+# to avoid error:
+# 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+export STORAGE_DRIVE=vfs
+
 # TODO guess the directory for non zola/hugo
 if [ -z "$PLUGIN_PATH" ]; then
 	SITE_PATH=$(pwd)/public
