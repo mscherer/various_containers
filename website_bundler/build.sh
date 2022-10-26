@@ -5,9 +5,14 @@
 # $PLUGIN_NAMESPACE
 # $PLUGIN_PATH
 set -e
+if [ -v PLUGIN_DEBUG_BUILD ]; then
+	set -x
+	env | sort
+fi;
+
 
 if [ -z "$PASSWORD" ]; then
-	echo "Variable \$PASWWORD not set, can't continue"
+	echo "Variable \$PASSWORD not set, can't continue"
 	exit 1
 fi
 
@@ -20,11 +25,6 @@ REGISTRY=$PLUGIN_REGISTRY
 NAMESPACE=$PLUGIN_NAMESPACE
 
 NAME=webserver
-
-if [ -v PLUGIN_DEBUG_BUILD ]; then
-	set -x
-	env | sort
-fi;
 
 # TODO guess the directory for non zola/hugo
 if [ -z "$PLUGIN_PATH" ]; then
