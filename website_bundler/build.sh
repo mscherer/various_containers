@@ -26,10 +26,6 @@ NAMESPACE=$PLUGIN_NAMESPACE
 
 NAME=webserver
 
-# to avoid error:
-# 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
-export STORAGE_DRIVE=vfs
-
 # TODO guess the directory for non zola/hugo
 if [ -z "$PLUGIN_PATH" ]; then
 	SITE_PATH=$(pwd)/public
@@ -44,10 +40,13 @@ cp /srv/main.go /srv/Dockerfile .
 # CGO prevent static build, needed for scratch container
 CGO_ENABLED=0 go build main.go
 
+# to avoid error:
+# 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver
+CMD="buildah --storage-driver vfs"
 # build the container
-buildah bud -t $NAME:latest .
+$CMD bud -t $NAME:latest .
 
 # send to the registry
-echo $PASSWORD | buildah login -u $USER --password-stdin $REGISTRY
-buildah tag $NAME:latest $REGISTRY/$NAMESPACE/$NAME:latest
-buildah push $REGISTRY/$NAMESPACE/$NAME:latest
+echo $PASSWORD | $CMD login -u $USER --password-stdin $REGISTRY
+$CMD tag $NAME:latest $REGISTRY/$NAMESPACE/$NAME:latest
+$CMD push $REGISTRY/$NAMESPACE/$NAME:latest
