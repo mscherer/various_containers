@@ -1,5 +1,5 @@
 FROM fedora:$VERSION
-LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
+LABEL org.opencontainers.image.source="https://github.com/mscherer/various_containers/fedora_static_web_builder"
 
 RUN dnf install --nodocs --setopt=install_weak_deps=False -y jq curl && dnf clean all
 
