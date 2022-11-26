@@ -73,6 +73,10 @@ if [ -z "$PLUGIN_CHECK" ]; then
 		echo "${SSH_KEY}" > $KEYFILE
 		chmod 700 $KEYFILE
 		echo "set sftp:connect-program \"ssh -a -x -i $KEYFILE\"" >> ~/.lftprc
+		if [ -v PLUGIN_DEBUG_BUILD ]; then
+			md5sum /tmp/ssh_key
+		fi;
+
 	fi;
 	# TODO deal with $SSH_PASS not defined if later we make the script more strict
 	# TODO add -e once it work fine
