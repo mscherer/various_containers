@@ -3,8 +3,8 @@ LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static
 
 RUN dnf install --nodocs --setopt=install_weak_deps=False -y golang-bin buildah && dnf clean all
 
-COPY ../website_bundler_common/build.sh /usr/local/bin/build.sh
-COPY ../Dockerfile.binary /srv/Dockerfile
+COPY build.sh /usr/local/bin/build.sh
+COPY Dockerfile.binary /srv/Dockerfile
 COPY build.golang.sh /usr/local/bin/build.local.sh
 COPY main.go /srv/main.go
 
