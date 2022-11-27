@@ -6,6 +6,8 @@ RUN dnf install --nodocs --setopt=install_weak_deps=False -y rust cargo buildah 
 COPY build.sh /usr/local/bin/build.sh
 COPY Dockerfile.binary /srv/Dockerfile
 COPY build.rust.sh /usr/local/bin/build.local.sh
-RUN git clone https://git.home.ephaone.org/misc/rust-static-server.git /srv/rust-static-server 
+# use a mirror on IP v4, since github is not supporting IP v6 yet, and live in the past
+RUN git clone https://github.com/mscherer/rust-static-server.git /srv/rust-static-server 
+#RUN git clone https://git.home.ephaone.org/misc/rust-static-server.git /srv/rust-static-server 
 
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
