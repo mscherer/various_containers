@@ -32,7 +32,9 @@ jobs:
             export IMAGE=$LOGIN/$(dirname $i)
             cd $(dirname $i)
             python ../complete_template.py Dockerfile.template Dockerfile
-
+            for f in $(find . -type l); do
+              ln -f $(readlink $f) $f
+            done
             docker build . --tag $REGISTRY/$IMAGE:$DATE --tag $REGISTRY/$IMAGE:latest
             docker push $REGISTRY/$IMAGE:latest
             docker push $REGISTRY/$IMAGE:$DATE
