@@ -35,8 +35,17 @@ fi
 
 # compile in /tmp, if container is readonly
 cd /tmp
+
 cp -R $SITE_PATH public
-./build.golang.sh
+
+# this script must produce a file /tmp/server, used
+# later to build the container
+/usr/bin/local/build.local.sh
+# safeguard in case a script forget to come back to /tmp
+cd /tmp
+if [ ! -f server ]; then
+	echo "No server found in $(pwd), can't continue"
+fi;
 
 # to avoid error:
 # 'overlay' is not supported over overlayfs, a mount_program is required: backing file system is unsupported for this graph driver

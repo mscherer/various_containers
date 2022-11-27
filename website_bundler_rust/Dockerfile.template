@@ -1,0 +1,11 @@
+FROM fedora:$VERSION
+LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
+
+RUN dnf install --nodocs --setopt=install_weak_deps=False -y rust cargo buildah && dnf clean all
+
+COPY ../website_bundler_common/build.sh /usr/local/bin/build.sh
+COPY ../Dockerfile.binary /srv/Dockerfile
+COPY build.rust.sh /usr/local/bin/build.local.sh
+RUN git clone https://git.home.ephaone.org/misc/rust-static-server.git /srv 
+
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
