@@ -1,0 +1,7 @@
+FROM docker.io/flyio/flyctl:latest AS fly
+LABEL org.opencontainers.image.source="https://github.com/mscherer/various_containers/woodpecker_fly"
+
+FROM busybox:latest
+COPY --from=fly /flyctl /bin/fly
+COPY build.sh /bin/build.sh
+ENTRYPOINT ["/bin/sh", "/bin/build.sh"]

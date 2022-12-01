@@ -23,4 +23,9 @@ as a HTTP server. I will then push the container a to a remote registry, such as
 their CaaS offer.
 
 Due to using a Fedora base image and choices made by Fedora and the Go project, the container is quite 
-big (eg, 800 Mb). I also looked at rewriting the code in Rust, but that's not better. 
+big (eg, 800 Mb). I also looked at rewriting the code in Rust, but that's not better.
+
+## Fly woodpecker plugin
+
+This image allow to use fly as a woodpecker step, by running `fly deploy` on the existing
+CI. Used for fly.io hosting. 
