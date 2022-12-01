@@ -21,6 +21,12 @@ if [ -z "$PLUGIN_USER" ]; then
 else
 	USER=$PLUGIN_USER
 fi
+
+FORMAT=""
+if [ -v "$PLUGIN_MANIFEST_TYPE" ]; then
+	FORMAT="--format $PLUGIN_MANIFEST_TYPE"
+fi;
+
 REGISTRY=$PLUGIN_REGISTRY
 NAMESPACE=$PLUGIN_NAMESPACE
 
@@ -56,4 +62,4 @@ $CMD bud -t $NAME:latest .
 # send to the registry
 echo $PASSWORD | $CMD login -u $USER --password-stdin $REGISTRY
 $CMD tag $NAME:latest $REGISTRY/$NAMESPACE/$NAME:latest
-$CMD push $REGISTRY/$NAMESPACE/$NAME:latest
+$CMD push $FORMAT $REGISTRY/$NAMESPACE/$NAME:latest
