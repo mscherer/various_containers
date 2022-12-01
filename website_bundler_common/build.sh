@@ -28,7 +28,11 @@ if [ -v "$PLUGIN_MANIFEST_TYPE" ]; then
 fi;
 
 REGISTRY=$PLUGIN_REGISTRY
-NAMESPACE=$PLUGIN_NAMESPACE
+
+NAMESPACE=""
+if [ -v "$PLUGIN_NAMESPACE" ]; then
+	NAMESPACE="/$PLUGIN_NAMESPACE"
+fi;
 
 NAME=webserver
 
@@ -61,5 +65,5 @@ $CMD bud -t $NAME:latest .
 
 # send to the registry
 echo $PASSWORD | $CMD login -u $USER --password-stdin $REGISTRY
-$CMD tag $NAME:latest $REGISTRY/$NAMESPACE/$NAME:latest
-$CMD push $FORMAT $REGISTRY/$NAMESPACE/$NAME:latest
+$CMD tag $NAME:latest ${REGISTRY}${NAMESPACE}/$NAME:latest
+$CMD push $FORMAT ${REGISTRY}${NAMESPACE}/$NAME:latest
