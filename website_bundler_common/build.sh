@@ -4,6 +4,7 @@
 # $PLUGIN_REGISTRY
 # $PLUGIN_NAMESPACE
 # $PLUGIN_PATH
+# $PLUGIN_NAME
 set -e
 if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
@@ -35,6 +36,9 @@ if [ -v "$PLUGIN_NAMESPACE" ]; then
 fi;
 
 NAME=webserver
+if [ -v "$PLUGIN_NAME" ]; then
+	NAME="$PLUGIN_NAME"
+fi;
 
 # TODO guess the directory for non zola/hugo
 if [ -z "$PLUGIN_PATH" ]; then
