@@ -1,5 +1,5 @@
 #!/bin/bash
-cp /srv/rust-static-server .
+cp -r /srv/rust-static-server .
 cp /srv/Dockerfile .
 cd rust-static-server
 ln ../public .
