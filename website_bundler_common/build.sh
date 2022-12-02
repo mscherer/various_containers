@@ -18,9 +18,9 @@ if [ -z "$PASSWORD" ]; then
 fi
 
 if [ -v PLUGIN_USER ]; then
-	USER=nologin
-else
 	USER=$PLUGIN_USER
+else
+	USER=nologin
 fi
 
 FORMAT=""
@@ -42,9 +42,9 @@ fi;
 
 # TODO guess the directory for non zola/hugo
 if [ -v PLUGIN_PATH ]; then
-	SITE_PATH=${CI_WORKSPACE}/public
-else
 	SITE_PATH=${CI_WORKSPACE}/$PLUGIN_PATH
+else
+	SITE_PATH=${CI_WORKSPACE}/public
 fi
 
 # compile in /tmp, if container is readonly
