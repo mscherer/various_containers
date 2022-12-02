@@ -3,5 +3,6 @@ LABEL org.opencontainers.image.source="https://github.com/mscherer/various_conta
 
 FROM busybox:latest
 COPY --from=fly /flyctl /bin/fly
+COPY --from=fly /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY build.sh /bin/build.sh
 ENTRYPOINT ["/bin/sh", "/bin/build.sh"]
