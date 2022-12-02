@@ -1,7 +1,7 @@
 FROM fedora:$VERSION
 LABEL org.opencontainers.image.source="https://github.com/mscherer/fedora_static_web_builder"
 
-RUN dnf install --nodocs --setopt=install_weak_deps=False -y rust cargo buildah git && dnf clean all
+RUN dnf install --nodocs --setopt=install_weak_deps=False -y rust glibc-static cargo buildah git && dnf clean all
 
 COPY build.sh /usr/local/bin/build.sh
 COPY Dockerfile.binary /srv/Dockerfile
