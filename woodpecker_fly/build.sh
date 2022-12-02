@@ -11,7 +11,7 @@ fi
 
 COMMAND="deploy"
 if [ -v PLUGIN_COMMAND ]; then
-	COMMAND="$PLUGIN_COMMAND"
+	export COMMAND="$PLUGIN_COMMAND"
 fi
 
 fly $COMMAND
