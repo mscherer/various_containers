@@ -54,7 +54,7 @@ cp -R $SITE_PATH public
 
 # this script must produce a file /tmp/server, used
 # later to build the container
-/usr/local/bin/build.local.sh
+bash /usr/local/bin/build.local.sh
 # safeguard in case a script forget to come back to /tmp
 cd /tmp
 if [ ! -f server ]; then
