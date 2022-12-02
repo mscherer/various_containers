@@ -10,7 +10,7 @@ if [ -z "$FLY_API_TOKEN" ]; then
 fi
 
 COMMAND="deploy"
-if [ -v PLUGIN_COMMAND ]; then
+if [ ! -z "$PLUGIN_COMMAND" ]; then
 	export COMMAND="$PLUGIN_COMMAND"
 fi
 
