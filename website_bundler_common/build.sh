@@ -42,9 +42,9 @@ fi;
 
 # TODO guess the directory for non zola/hugo
 if [ -z "$PLUGIN_PATH" ]; then
-	SITE_PATH=$(pwd)/public
+	SITE_PATH=${CI_WORKSPACE}/public
 else
-	SITE_PATH=$PLUGIN_PATH
+	SITE_PATH=${CI_WORKSPACE}/$PLUGIN_PATH
 fi
 
 # compile in /tmp, if container is readonly
