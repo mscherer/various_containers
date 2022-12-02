@@ -24,7 +24,7 @@ else
 fi
 
 FORMAT=""
-if [ -v "$PLUGIN_MANIFEST_TYPE" ]; then
+if [ -v PLUGIN_MANIFEST_TYPE ]; then
 	FORMAT="--format $PLUGIN_MANIFEST_TYPE"
 fi;
 
