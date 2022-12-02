@@ -1,0 +1,4 @@
+FROM busybox
+EXPOSE 8080
+COPY server /usr/local/bin/server
+ENTRYPOINT ["/usr/local/bin/server"]
