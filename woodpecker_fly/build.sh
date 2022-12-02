@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 if [ ! -f fly.toml ]; then
 	echo 'No fly.toml file found'
