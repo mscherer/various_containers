@@ -18,12 +18,12 @@ on /data using over http on the port configured on Openshift.
 
 ## Website bundler
 
-This image will take a existing volume as a source, and create a container with a single go binary serving
-as a HTTP server. I will then push the container a to a remote registry, such as the one from Scalway for
-their CaaS offer.
+This image will take a existing volume as a source, and create a container with a single go/rust static 
+binary serving as a HTTP server. I will then push the container a to a remote registry, such as the one 
+from Scaleway for their CaaS offer, or fly.io, if already configured.
 
-Due to using a Fedora base image and choices made by Fedora and the Go project, the container is quite 
-big (eg, 800 Mb). I also looked at rewriting the code in Rust, but that's not better.
+Due to using a Fedora base image and choices made by Fedora, the Go project and Rust, the container used to build 
+is quite big (eg, 800 Mb), either for go or rust.
 
 ## Fly woodpecker plugin
 
