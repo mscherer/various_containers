@@ -17,25 +17,46 @@ if [ -z "$PASSWORD" ]; then
 	exit 1
 fi
 
-if [ -v PLUGIN_USER ]; then
-	USER=$PLUGIN_USER
+FORMAT=""
+USER=""
+NAME=""
+NAMESPACE=""
+
+if [ -v PLUGIN_REGISTRY ]; then
+	REGISTRY=$PLUGIN_REGISTRY
 else
+	if [ -f fly.toml ]; then
+		REGISTRY="registry.fly.io"
+	else
+		echo "No registry given, can't continue"
+		exit 1
+	fi
+fi
+
+
+if [ "$REGISTRY" == "registry.fly.io" ]; then
+	USER="x"
+	FORMAT="--format v2s2" 
+	if [ -f fly.toml ]; then
+		NAME=$(grep ^app fly.toml | awk -F '"' '{print $2}')
+	fi
+elif [ "$PLUGIN_REGISTRY" == "*.scw.cloud" ]; then
 	USER=nologin
 fi
 
-FORMAT=""
+
+if [ -v PLUGIN_USER ]; then
+	USER=$PLUGIN_USER
+fi
+
 if [ -v PLUGIN_MANIFEST_TYPE ]; then
 	FORMAT="--format $PLUGIN_MANIFEST_TYPE"
 fi;
 
-REGISTRY=$PLUGIN_REGISTRY
-
-NAMESPACE=""
 if [ -v PLUGIN_NAMESPACE ]; then
 	NAMESPACE="/$PLUGIN_NAMESPACE"
 fi;
 
-NAME=webserver
 if [ -v PLUGIN_NAME ]; then
 	NAME="$PLUGIN_NAME"
 fi;
@@ -46,6 +67,18 @@ if [ -v PLUGIN_PATH ]; then
 else
 	SITE_PATH=${CI_WORKSPACE}/public
 fi
+
+if [ -z "$USER" ]; then
+	echo "No user given (or detected), can't login to registry"
+	exit 1
+fi
+
+if [ -z "$NAME" ]; then
+	echo "No container name given (or detected), can't push to registry"
+	exit 1
+fi
+
+
 
 # compile in /tmp, if container is readonly
 cd /tmp
