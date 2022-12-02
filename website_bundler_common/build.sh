@@ -17,7 +17,7 @@ if [ -z "$PASSWORD" ]; then
 	exit 1
 fi
 
-if [ -z "$PLUGIN_USER" ]; then
+if [ -v PLUGIN_USER ]; then
 	USER=nologin
 else
 	USER=$PLUGIN_USER
@@ -31,17 +31,17 @@ fi;
 REGISTRY=$PLUGIN_REGISTRY
 
 NAMESPACE=""
-if [ -v "$PLUGIN_NAMESPACE" ]; then
+if [ -v PLUGIN_NAMESPACE ]; then
 	NAMESPACE="/$PLUGIN_NAMESPACE"
 fi;
 
 NAME=webserver
-if [ -v "$PLUGIN_NAME" ]; then
+if [ -v PLUGIN_NAME ]; then
 	NAME="$PLUGIN_NAME"
 fi;
 
 # TODO guess the directory for non zola/hugo
-if [ -z "$PLUGIN_PATH" ]; then
+if [ -v PLUGIN_PATH ]; then
 	SITE_PATH=${CI_WORKSPACE}/public
 else
 	SITE_PATH=${CI_WORKSPACE}/$PLUGIN_PATH
