@@ -83,6 +83,7 @@ fi
 # compile in /tmp, if container is readonly
 cd /tmp
 
+cp /srv/Dockerfile .
 cp -R $SITE_PATH public
 
 # this script must produce a file /tmp/server, used
