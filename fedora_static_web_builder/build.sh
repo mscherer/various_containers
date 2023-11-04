@@ -34,12 +34,14 @@ case $PLUGIN_BUILDER in
 	zola)
 		CMD="zola build"
 		CMD_DRAFT="--drafts"
+		CMD_VERSION="-V"
 	       	CMD_BASE_URL="--base-url $BASE_URL"
 		BUILT_SITE="public"
 	;;
 	hugo)
 		CMD="hugo" 
 		CMD_DRAFT="-D"
+		CMD_VERSION="version"
 		CMD_BASE_URL="--baseURL $BASE_URL"
 		BUILT_SITE="public"
 	;;		
@@ -54,6 +56,7 @@ if [ -z "$CMD" ]; then
 	exit 1
 fi;
 
+eval $CMD $CMD_VERSION
 eval $CMD $CMD_DRAFT $CMD_BASE_URL
 
 if [ -z "$PLUGIN_CHECK" ]; then
