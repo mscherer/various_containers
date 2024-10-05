@@ -71,13 +71,13 @@ if [ -z "$PLUGIN_CHECK" ]; then
 	fi;
 
 	echo "set sftp:auto-confirm yes" > ~/.lftprc
-	if [ -z "$SSH_KEY" ]; then
+	if [ -z "$PLUGIN_SSH_KEY" ]; then
 		KEY_OPTION=""
 	else
 		KEYFILE=/tmp/ssh_key
 		# keep the double ${} for variable escaping, and the " for
 		# https://stackoverflow.com/questions/22101778/how-to-preserve-line-breaks-when-storing-command-output-to-a-variable
-		echo "${SSH_KEY}" > $KEYFILE
+		echo "${PLUGIN_SSH_KEY}" > $KEYFILE
 		chmod 700 $KEYFILE
 		echo "set sftp:connect-program \"ssh -a -x -i $KEYFILE\"" >> ~/.lftprc
 		if [ -v PLUGIN_DEBUG_BUILD ]; then
@@ -89,5 +89,5 @@ if [ -z "$PLUGIN_CHECK" ]; then
 	# TODO add -e once it work fine
 	# TODO add -v if $DEBUG_OPTION is set
 	# note: having a final / or not in the destination do not seems to have much impact, contrary to what is said in the changelog
-	lftp $DEBUG_OPTION -u $PLUGIN_USER,$SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR; bye" sftp://$PLUGIN_SERVER
+	lftp $DEBUG_OPTION -u $PLUGIN_USER,$PLUGIN_SSH_PASS -e "mirror -R --no-perms $BUILT_SITE/ $PLUGIN_DESTINATION_DIR; bye" sftp://$PLUGIN_SERVER
 fi;
