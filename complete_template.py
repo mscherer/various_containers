@@ -13,7 +13,7 @@ payload = {
                       ?n ps:P348 ?versionstable;
                         pq:P548 wd:Q2804309.
                     }
-                    ORDER BY DESC (?versionstable)
+                    ORDER BY DESC (xsd:integer(?versionstable))
                     LIMIT 1 '''
 }
 
