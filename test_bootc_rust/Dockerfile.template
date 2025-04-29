@@ -1,0 +1,5 @@
+FROM quay.io/fedora/fedora-bootc:$VERSION
+
+LABEL org.opencontainers.image.source="https://github.com/mscherer/various_containers"
+
+RUN dnf install -y --setopt=install_weak_deps=false neovim git cargo && dnf clean all
