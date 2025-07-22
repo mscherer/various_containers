@@ -1,0 +1,7 @@
+FROM fedora:$VERSION
+LABEL org.opencontainers.image.source="https://github.com/mscherer/various_containers/woodpecker_check_rust"
+
+RUN dnf install --nodocs --setopt=install_weak_deps=False -y cargo rust clippy && dnf clean all
+
+COPY build.sh /usr/local/bin/build.sh
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/build.sh"]
