@@ -18,7 +18,7 @@ payload = {
 }
 
 headers = {'User-Agent': 'SomeCI/0.1 (https://github.com/mscherer/various_containers)'}
-version = requests.get('https://query.wikidata.org/sparql', params=payload).json()['results']['bindings'][0]['versionstable']['value']
+version = requests.get('https://query.wikidata.org/sparql', params=payload, headers=headers).json()['results']['bindings'][0]['versionstable']['value']
 
 with open(sys.argv[1],'r') as input_file:
     with open(sys.argv[2], 'w') as output_file:
