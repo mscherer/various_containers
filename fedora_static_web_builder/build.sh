@@ -14,8 +14,6 @@ if [ -v PLUGIN_DEBUG_BUILD ]; then
 	set -x
 	env | sort
 	DEBUG_OPTION="-d"
-	ip a
-	ip r
 fi;
 	       
 
